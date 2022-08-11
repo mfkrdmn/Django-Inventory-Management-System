@@ -18,7 +18,7 @@ def staff(request):
 @login_required(login_url="user-login")
 def products(request):
 
-    all_products = Product.objects.all()
+    product = Product.objects.all()
 
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -31,7 +31,7 @@ def products(request):
         form = ProductForm()
 
     context = {
-        "all_products" : all_products,
+        "product" : product,
         "form" :form,
     }
 
@@ -40,3 +40,14 @@ def products(request):
 @login_required(login_url="user-login")
 def order(request):
     return render(request, "dashboard/order.html")
+
+
+def product_delete(request, pk):
+    item = Product.objects.get(id=pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('dashboard-products')
+    context = {
+        'item': item
+    }
+    return render(request, 'dashboard/products_delete.html', context)
