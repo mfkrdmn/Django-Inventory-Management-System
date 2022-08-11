@@ -23,6 +23,7 @@ def staff(request):
 def products(request):
 
     product = Product.objects.all()
+    product_count = product.count()
 
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -37,6 +38,7 @@ def products(request):
     context = {
         "product" : product,
         "form" :form,
+        "product_count" : product_count
     }
 
     return render(request, "dashboard/products.html",context)
