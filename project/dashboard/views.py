@@ -9,7 +9,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="user-login")
 def index(request):
-    return render(request, "dashboard/index.html")
+    products = Product.objects.all()
+    context={
+        "products" :products
+    }
+    return render(request, "dashboard/index.html", context)
 
 @login_required(login_url="user-login")
 def staff(request):

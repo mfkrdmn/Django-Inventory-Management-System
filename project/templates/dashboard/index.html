@@ -1,7 +1,5 @@
 {% extends 'partials/base.html' %} 
 {% block content %}
-
-
 {% if user.is_authenticated and user.is_staff and user.is_superuser %}
 {% include 'partials/topside.html' %}
 <div class="container">
@@ -14,10 +12,10 @@
                     var myChart1 = new Chart(ctx, {
                         type: 'pie',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: [{% for i in products %} "{{i.name}}", {% endfor %}],
                             datasets: [{
                                 label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                data: [{% for i in products %} {{i.quantity}}, {% endfor %}],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
@@ -58,10 +56,10 @@
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: [{% for i in products %} "{{i.name}}", {% endfor %}],
                             datasets: [{
                                 label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                data: [{% for i in products %} {{i.quantity}}, {% endfor %}],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
